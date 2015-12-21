@@ -14,7 +14,7 @@
    <string>TestQtCreatorProFile</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="ToolTestQtCreatorProFile.qrc">
+   <iconset resource="TestQtCreatorProFile.qrc">
     <normaloff>:/images/PicQtCreator.png</normaloff>:/images/PicQtCreator.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -57,7 +57,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="ToolTestQtCreatorProFile.qrc"/>
+  <include location="TestQtCreatorProFile.qrc"/>
  </resources>
  <connections/>
 </ui>

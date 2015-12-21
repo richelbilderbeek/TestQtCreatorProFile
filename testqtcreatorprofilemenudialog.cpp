@@ -28,7 +28,6 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include "fileio.h"
 #include "qtcreatorprofile.h"
 #include "testtimer.h"
-#include "richelbilderbeekprogram.h"
 #include "trace.h"
 #pragma GCC diagnostic pop
 
@@ -57,7 +56,7 @@ int ribi::TestQtCreatorProFileMenuDialog::ExecuteSpecific(const std::vector<std:
     {
       std::cout << "Please specify a filename ending on .pro.\n";
     }
-    else if (!fileio::FileIo().IsRegularFile(filename))
+    else if (!FileIo().IsRegularFile(filename))
     {
       std::cout << "Please specify a Qt Creator (.pro) project filename that exists.\n";
     }
@@ -80,7 +79,7 @@ ribi::About ribi::TestQtCreatorProFileMenuDialog::GetAbout() const noexcept
     "Richel Bilderbeek",
     "TestQtCreatorProFile",
     "tool to test the QtCreatorProFile class",
-    "the 18th May 2013",
+    "December 21st of 2014",
     "2010-2015",
     "http://www.richelbilderbeek.nl/ToolTestQtCreatorProFile.htm",
     GetVersion(),
@@ -105,18 +104,9 @@ ribi::Help ribi::TestQtCreatorProFileMenuDialog::GetHelp() const noexcept
   );
 }
 
-boost::shared_ptr<const ribi::Program> ribi::TestQtCreatorProFileMenuDialog::GetProgram() const noexcept
-{
-  const boost::shared_ptr<const Program> p {
-    new ProgramTestQtCreatorProFile
-  };
-  assert(p);
-  return p;
-}
-
 std::string ribi::TestQtCreatorProFileMenuDialog::GetVersion() const noexcept
 {
-  return "1.4";
+  return "2.0";
 }
 
 std::vector<std::string> ribi::TestQtCreatorProFileMenuDialog::GetVersionHistory() const noexcept
@@ -126,7 +116,8 @@ std::vector<std::string> ribi::TestQtCreatorProFileMenuDialog::GetVersionHistory
     "2012-02-27: version 1.1: initial version with About information",
     "2013-05-18: version 1.2: renamed this tool to TestQtCreatorProFile",
     "2013-11-05: version 1.3: conformized for ProjectRichelBilderbeekConsole",
-    "2014-01-27: version 1.4: removed Boost.Filesystem and Boost.Program_Options"
+    "2014-01-27: version 1.4: removed Boost.Filesystem and Boost.Program_Options",
+    "2015-12-21: version 2.0: moved to own GitHub",
   };
 }
 
@@ -138,6 +129,10 @@ void ribi::TestQtCreatorProFileMenuDialog::Test() noexcept
     if (is_tested) return;
     is_tested = true;
   }
+  {
+    FileIo();
+    QtCreatorProFile::Test();
+  }
   const TestTimer test_timer(__func__,__FILE__,1.0);
   const bool verbose{false};
   {
@@ -145,19 +140,17 @@ void ribi::TestQtCreatorProFileMenuDialog::Test() noexcept
     s
       << "SOURCES += qtmain.cpp" << '\n'
     ;
-    const std::string filename = fileio::FileIo().GetTempFileName(".pro");
+    const std::string filename = FileIo().GetTempFileName(".pro");
     {
       std::ofstream f(filename.c_str());
       f << s.str();
     }
-    assert(fileio::FileIo().IsRegularFile(filename));
-    const boost::shared_ptr<const QtCreatorProFile> p(
-      new QtCreatorProFile(filename)
-    );
-    assert(p->GetSources().size() == 1);
-    if (verbose) { TRACE(*p); }
+    assert(FileIo().IsRegularFile(filename));
+    const QtCreatorProFile p{filename};
+    assert(p.GetSources().size() == 1);
+    if (verbose) { TRACE(p); }
 
-    fileio::FileIo().DeleteFile(filename);
+    FileIo().DeleteFile(filename);
   }
   {
     std::stringstream s;
@@ -186,19 +179,17 @@ void ribi::TestQtCreatorProFileMenuDialog::Test() noexcept
       << "" << '\n'
       << "SOURCES += qtmain.cpp" << '\n'
     ;
-    const std::string filename = fileio::FileIo().GetTempFileName(".pro");
+    const std::string filename = FileIo().GetTempFileName(".pro");
     {
       std::ofstream f(filename.c_str());
       f << s.str();
     }
-    assert(fileio::FileIo().IsRegularFile(filename));
-    const boost::shared_ptr<const QtCreatorProFile> p(
-      new QtCreatorProFile(filename)
-    );
-    assert(p->GetSources().size() == 1);
-    if (verbose) { TRACE(*p); }
+    assert(FileIo().IsRegularFile(filename));
+    const QtCreatorProFile p{filename};
+    assert(p.GetSources().size() == 1);
+    if (verbose) { TRACE(p); }
 
-    fileio::FileIo().DeleteFile(filename);
+    FileIo().DeleteFile(filename);
   }
 }
 #endif

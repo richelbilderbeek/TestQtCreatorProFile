@@ -19,7 +19,7 @@
    <string>TestQtCreatorProFile</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="ToolTestQtCreatorProFile.qrc">
+   <iconset resource="TestQtCreatorProFile.qrc">
     <normaloff>:/images/PicQtCreator.png</normaloff>:/images/PicQtCreator.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -29,7 +29,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="ToolTestQtCreatorProFile.qrc">:/images/ToolTestQtCreatorProFile.png</pixmap>
+      <pixmap resource="TestQtCreatorProFile.qrc">:/images/TestQtCreatorProFile.png</pixmap>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -60,7 +60,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="ToolTestQtCreatorProFile.qrc"/>
+  <include location="TestQtCreatorProFile.qrc"/>
  </resources>
  <connections/>
 </ui>
